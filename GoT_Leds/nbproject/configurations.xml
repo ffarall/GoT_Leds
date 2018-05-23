@@ -7,6 +7,7 @@
       <itemPath>EJ_1.h</itemPath>
       <itemPath>getPort.h</itemPath>
       <itemPath>graphic_lib.h</itemPath>
+      <itemPath>main.h</itemPath>
       <itemPath>types_def.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -57,6 +58,8 @@
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="main.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="types_def.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -93,6 +96,8 @@
       <item path="graphic_lib.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="main.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="types_def.h" ex="false" tool="3" flavor2="0">
       </item>

@@ -63,6 +63,7 @@ void act_routinec(void);
 void act_routines(void);
 void reset_FSM(void);
 STATE* leds_fsm(STATE *pstate, char event);
+void image_to_display(ALLEGRO_BITMAP *bitmap, const char* filename, float dx, float dy, int flags);
 
 
 /**

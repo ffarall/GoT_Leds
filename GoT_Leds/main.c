@@ -2,53 +2,64 @@
 
 int main (void)
 {
-  boolean_t isEvent = TRUE;
-  ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-  ALLEGRO_TIMER *timer = NULL;
-  ALLEGRO_DISPLAY *display = NULL;
-  STATE states_array[] =
-  {
-    {'0',states_array,act_routine0},
-    {'1',states_array,act_routine1},
-    {'2',states_array,act_routine2},
-    {'3',states_array,act_routine3},
-    {'4',states_array,act_routine4},
-    {'5',states_array,act_routine5},
-    {'6',states_array,act_routine6},
-    {'7',states_array,act_routine7},
-    {'t',states_array,act_routinet},
-    {'c',states_array,act_routinec},
-    {'s',states_array,act_routines},
-    {FIN_TABLA,states_array,reset_FSM},
-  };
-  STATE *p_state = &states_array[0];
-  
-  timer = al_create_timer(1.0 / FPS);
+/********************INITIALIZATION OF VARIABLES***************************/
+    boolean_t isEvent = TRUE;
+    ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+    ALLEGRO_TIMER *timer = NULL;
+    ALLEGRO_DISPLAY *display = NULL;
+    ALLEGRO_EVENT event;
+    STATE states_array[] =
+    {
+      {'0',states_array,act_routine0},
+      {'1',states_array,act_routine1},
+      {'2',states_array,act_routine2},
+      {'3',states_array,act_routine3},
+      {'4',states_array,act_routine4},
+      {'5',states_array,act_routine5},
+      {'6',states_array,act_routine6},
+      {'7',states_array,act_routine7},
+      {'t',states_array,act_routinet},
+      {'c',states_array,act_routinec},
+      {'s',states_array,act_routines},
+      {FIN_TABLA,states_array,reset_FSM},
+    };
+    STATE *p_state = &states_array[0];
+    
+    if(!al_install_keyboard()) {
+        fprintf(stderr, "failed to initialize the keyboard!\n");
+        return -1;
+    }
+
+    timer = al_create_timer(1.0 / FPS);
     if(!timer) {
         fprintf(stderr, "failed to create timer!\n");
         return -1;
     }
 
-  event_queue = al_create_event_queue();
-  if(!event_queue) {
-    fprintf(stderr, "failed to create event_queue!\n");
-    al_destroy_timer(timer);
-    return -1;
-  }
-  
-  display = al_create_display(640, 480);
-	if(!display) {
-		fprintf(stderr, "failed to create display!\n");
-		al_destroy_event_queue(event_queue);
-		al_destroy_timer(timer);
-		return -1;
-	}
-  
-  al_register_event_source(event_queue, al_get_timer_event_source(timer));
-  al_register_event_source(event_queue, al_get_timer_event_source(display));
-  
-  
-  
+    event_queue = al_create_event_queue();
+    if(!event_queue) {
+      fprintf(stderr, "failed to create event_queue!\n");
+      al_destroy_timer(timer);
+      return -1;
+    }
+
+    display = al_create_display(640, 480);
+    if(!display) {
+        fprintf(stderr, "failed to create display!\n");
+        al_destroy_event_queue(event_queue);
+        al_destroy_timer(timer);
+        return -1;
+    }
+
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));
+    al_register_event_source(event_queue, al_get_timer_event_source(display));
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+    al_start_timer();
+    
+/***************************************************************************/
+    
+    while(event != )
 /*  changemode(BUFFERED_OFF);
 
   while (event != END_OF_SIM )
@@ -68,7 +79,11 @@ int main (void)
 
   printf("Simulación terminada\n");
 */
-  return 0;
+    
+    
+    al_destroy_timer(timer);
+    al_destroy_display(display);
+    return 0;
 }
 
 

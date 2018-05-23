@@ -5,4 +5,7 @@ void image_to_display(ALLEGRO_BITMAP *bitmap, const char* filename, float dx, fl
     if(!bitmap) {
         fprintf(stderr, "failed to load image !\n");
     }
+    
+    al_draw_bitmap(bitmap, dx, dy, flags);
+    al_flip_display();
 }
