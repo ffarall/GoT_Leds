@@ -1,9 +1,11 @@
-#include "leds_simulator.h"
+#include "main.h"
 
 int main (void)
 {
   boolean_t isEvent = TRUE;
-  char event;
+  ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+  ALLEGRO_TIMER *timer = NULL;
+  ALLEGRO_DISPLAY *display = NULL;
   STATE states_array[] =
   {
     {'0',states_array,act_routine0},
@@ -20,7 +22,31 @@ int main (void)
     {FIN_TABLA,states_array,reset_FSM},
   };
   STATE *p_state = &states_array[0];
+  
+  timer = al_create_timer(1.0 / FPS);
+    if(!timer) {
+        fprintf(stderr, "failed to create timer!\n");
+        return -1;
+    }
 
+  event_queue = al_create_event_queue();
+  if(!event_queue) {
+    fprintf(stderr, "failed to create event_queue!\n");
+    al_destroy_timer(timer);
+    return -1;
+  }
+  
+  display = al_create_display(640, 480);
+	if(!display) {
+		fprintf(stderr, "failed to create display!\n");
+		al_destroy_event_queue(event_queue);
+		al_destroy_timer(timer);
+		return -1;
+	}
+  
+  al_register_event_source(event_queue, al_get_timer_event_source(timer));
+  al_register_event_source(event_queue, al_get_timer_event_source(display));
+  
   
   
 /*  changemode(BUFFERED_OFF);
