@@ -21,7 +21,9 @@ int main (void)
   };
   STATE *p_state = &states_array[0];
 
-  changemode(BUFFERED_OFF);
+  
+  
+/*  changemode(BUFFERED_OFF);
 
   while (event != END_OF_SIM )
   {
@@ -39,7 +41,7 @@ int main (void)
   changemode(BUFFERED_ON);
 
   printf("Simulación terminada\n");
-
+*/
   return 0;
 }
 
