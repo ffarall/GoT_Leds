@@ -12,6 +12,8 @@
  ******************************************************************************/
 #include <stdio.h>
 #include <stdint.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
 
 
 /*******************************************************************************
@@ -23,7 +25,14 @@
 /*******************************************************************************
  * ENUMERATIONS AND STRUCTURES AND TYPEDEFS
  ******************************************************************************/
-
+typedef const char file_name_t;
+typedef struct {
+    ALLEGRO_BITMAP *bitmap;
+    float coordinates[2];
+    int flags;
+    file_name_t* file;
+    ALLEGRO_COLOR tint;
+} icon_t;
 
 
 /*******************************************************************************

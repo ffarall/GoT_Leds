@@ -59,7 +59,32 @@ int main (void)
     
 /***************************************************************************/
     
-    while(event != )
+    while(event != END_OF_SIM) {
+        if(al_get_next_event(event_queue, &event)) {
+            if(event.type == ALLEGRO_EVENT_TIMER) {
+                
+            }
+            
+            else if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+                
+            }
+            
+            else if(event.type == ALLEGRO_EVENT_KEY_UP) {
+                switch(event.keyboard.keycode) {
+                    case ALLEGRO_KEY_0: ;break;
+                    case ALLEGRO_KEY_1: ;break;
+                    case ALLEGRO_KEY_2: ;break;
+                    case ALLEGRO_KEY_3: ;break;
+                    case ALLEGRO_KEY_4: ;break;
+                    case ALLEGRO_KEY_5: ;break;
+                    case ALLEGRO_KEY_6: ;break;
+                    case ALLEGRO_KEY_7: ;break;
+                    case ALLEGRO_KEY_8: ;break;
+                    case ALLEGRO_KEY_9: ;break;
+                }
+            }
+        }
+    }
 /*  changemode(BUFFERED_OFF);
 
   while (event != END_OF_SIM )
