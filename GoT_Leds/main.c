@@ -218,13 +218,13 @@ int main (void)
    
     al_draw_scaled_bitmap(background, 0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),0, 0, DIS_WIDTH, DIS_HEIGHT, 0);
     al_draw_tinted_scaled_bitmap(starkSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(starkSigil.bitmap), al_get_bitmap_height(starkSigil.bitmap),LEDS_POS_X, LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
-    al_draw_tinted_scaled_bitmap(targaryenSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(targaryenSigil.bitmap), al_get_bitmap_height(targaryenSigil.bitmap), al_get_bit, 100, ICON_WIDTH, ICON_HEIGHT, 0);
-    al_draw_tinted_scaled_bitmap(starkSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(starkSigil.bitmap), al_get_bitmap_height(starkSigil.bitmap),100, 100, ICON_WIDTH, ICON_HEIGHT, 0);
-    al_draw_tinted_scaled_bitmap(starkSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(starkSigil.bitmap), al_get_bitmap_height(starkSigil.bitmap),100, 100, ICON_WIDTH, ICON_HEIGHT, 0);
-    al_draw_tinted_scaled_bitmap(starkSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(starkSigil.bitmap), al_get_bitmap_height(starkSigil.bitmap),100, 100, ICON_WIDTH, ICON_HEIGHT, 0);
-    al_draw_tinted_scaled_bitmap(starkSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(starkSigil.bitmap), al_get_bitmap_height(starkSigil.bitmap),100, 100, ICON_WIDTH, ICON_HEIGHT, 0);
-    al_draw_tinted_scaled_bitmap(starkSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(starkSigil.bitmap), al_get_bitmap_height(starkSigil.bitmap),100, 100, ICON_WIDTH, ICON_HEIGHT, 0);
-    al_draw_tinted_scaled_bitmap(starkSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(starkSigil.bitmap), al_get_bitmap_height(starkSigil.bitmap),100, 100, ICON_WIDTH, ICON_HEIGHT, 0);
+    al_draw_tinted_scaled_bitmap(targaryenSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(targaryenSigil.bitmap), al_get_bitmap_height(targaryenSigil.bitmap), LEDS_POS_X+ICON_WIDTH+25, LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
+    al_draw_tinted_scaled_bitmap(lannisterSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(lannisterSigil.bitmap), al_get_bitmap_height(lannisterSigil.bitmap), LEDS_POS_X+2*(ICON_WIDTH+25), LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
+    al_draw_tinted_scaled_bitmap(baratheonSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(baratheonSigil.bitmap), al_get_bitmap_height(baratheonSigil.bitmap), LEDS_POS_X+3*(ICON_WIDTH+25), LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
+    al_draw_tinted_scaled_bitmap(arrynSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(arrynSigil.bitmap), al_get_bitmap_height(arrynSigil.bitmap), LEDS_POS_X+4*(ICON_WIDTH+25), LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
+    al_draw_tinted_scaled_bitmap(tullySigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(tullySigil.bitmap), al_get_bitmap_height(tullySigil.bitmap), LEDS_POS_X+5*(ICON_WIDTH+25), LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
+    al_draw_tinted_scaled_bitmap(greyjoySigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(greyjoySigil.bitmap), al_get_bitmap_height(greyjoySigil.bitmap), LEDS_POS_X+6*(ICON_WIDTH+25), LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
+    al_draw_tinted_scaled_bitmap(tyrellSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(tyrellSigil.bitmap), al_get_bitmap_height(tyrellSigil.bitmap), LEDS_POS_X+7*(ICON_WIDTH+25), LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
 
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_display_event_source(display));
