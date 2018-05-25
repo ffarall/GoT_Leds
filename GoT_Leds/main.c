@@ -282,25 +282,7 @@ int main (void)
             
         }
     }
-/*  changemode(BUFFERED_OFF);
 
-  while (event != END_OF_SIM )
-  {
-
-    if ((isEvent = kbhit()))
-    {
-      event = getch();
-      p_state = leds_fsm(p_state, event);
-
-      print_port('A');
-    }
-
-  }
-
-  changemode(BUFFERED_ON);
-
-  printf("Simulación terminada\n");
-*/
     
     al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
