@@ -57,7 +57,7 @@ int main (void)
         return -1;
     }
     
-    background = al_load_bitmap(BACKGROUND);
+    background = al_load_bitmap(BACKGROUND_GOT);
     if(!background) {
         fprintf(stderr, "failed to create background!\n");
         al_destroy_event_queue(event_queue);
