@@ -219,3 +219,16 @@ void maskToggle (char port,uint16_t mask)
         #endif
     }
 }
+
+/************************************************************************************************************************
+ * FUNCION port_cont(). Recibe una variable char que informa el nombre del puerto, y devuelve el contenido de dicho puerto 
+ * Requiere la definición de la función (getPort())
+************************************************************************************************************************/  
+uint8_t port_cont(char port)
+{
+    portinfo_t port_i;
+    uint8_t* p2port;
+    port_i = getPort(port);
+    p2port = (uint8_t*) port_i.p2port;
+    return (*p2port);
+}
