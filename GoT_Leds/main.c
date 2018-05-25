@@ -26,46 +26,63 @@ int main (void)
     };
     STATE *p_state = &states_array[0];
     
-    if(!al_init()) {
+    if(!al_init()) 
+    {
         fprintf(stderr, "failed to initialize allegro!\n");
         return -1;
     }
     
-    if(!al_install_keyboard()) {
+    if(!al_install_keyboard()) 
+    {
         fprintf(stderr, "failed to initialize the keyboard!\n");
         return -1;
     }
 
     timer = al_create_timer(1.0 / FPS);
-    if(!timer) {
+    if(!timer) 
+    {
         fprintf(stderr, "failed to create timer!\n");
         return -1;
     }
 
     event_queue = al_create_event_queue();
-    if(!event_queue) {
-      fprintf(stderr, "failed to create event_queue!\n");
-      al_destroy_timer(timer);
-      return -1;
+    if(!event_queue) 
+    {
+        fprintf(stderr, "failed to create event_queue!\n");
+        al_destroy_timer(timer);
+        return -1;
     }
-
-    display = al_create_display(DIS_WIDTH, DIS_HEIGHT);
-    if(!display) {
-        fprintf(stderr, "failed to create display!\n");
+    
+    if(!al_init_image_addon())
+    {
+        fprintf(stderr, "failed to initialize image addon !\n");
         al_destroy_event_queue(event_queue);
         al_destroy_timer(timer);
         return -1;
     }
     
     background = al_load_bitmap(BACKGROUND_GOT);
-    if(!background) {
+    if(!background) 
+    {
         fprintf(stderr, "failed to create background!\n");
         al_destroy_event_queue(event_queue);
         al_destroy_timer(timer);
-        al_destroy_display(display);
         return -1;  
     }
 
+    display = al_create_display(DIS_WIDTH, DIS_HEIGHT);
+    if(!display) 
+    {
+        fprintf(stderr, "failed to create display!\n");
+        al_destroy_event_queue(event_queue);
+        al_destroy_timer(timer);
+        al_destroy_bitmap(background);
+        return -1;
+    }
+   
+    //al_set_target_bitmap(display);
+    al_draw_scaled_bitmap(background, 0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),0, 0, DIS_WIDTH, DIS_HEIGHT, 0);
+    //al_draw_bitmap(background, 0, 0, 0);
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -75,18 +92,24 @@ int main (void)
     
 /***************************************************************************
     
-    while(event != END_OF_SIM) {
-        if(al_get_next_event(event_queue, &event)) {
-            if(event.type == ALLEGRO_EVENT_TIMER) {
+    while(event != END_OF_SIM) 
+    {
+        if(al_get_next_event(event_queue, &event)) 
+        {
+            if(event.type == ALLEGRO_EVENT_TIMER) 
+            {
                 
             }
             
-            else if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+            else if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) 
+            {
                 
             }
             
-            else if(event.type == ALLEGRO_EVENT_KEY_CHAR) {
-                switch(event.keyboard.unichar) {
+            else if(event.type == ALLEGRO_EVENT_KEY_CHAR) 
+            {
+                switch(event.keyboard.unichar) 
+                {
                     case '0': ;break;
                     case '1': ;break;
                     case '2': ;break;
@@ -102,15 +125,17 @@ int main (void)
             }
         }
         
-        if(al_is_event_queue_empty(event_queue)) {
+        if(al_is_event_queue_empty(event_queue)) 
+        {
             background = al_load_bitmap(BACKGROUND);
-            if(!background) {
+            if(!background) 
+            {
                 fprintf(stderr, "failed to create background!\n");
                 al_destroy_event_queue(event_queue);
                 al_destroy_timer(timer);
                 al_destroy_display(display);
                 return -1;  
-    }
+            }
             
         }
     }
@@ -137,6 +162,7 @@ int main (void)
     al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
     al_destroy_display(display);
+    al_destroy_bitmap(background);
     return 0;
 }
 

@@ -26,8 +26,8 @@
 #define END_OF_SIM 'q'
 #define FIN_TABLA 0
 #define FPS 60.0
-#define DIS_WIDTH 640 
-#define DIS_HEIGHT 480
+#define DIS_WIDTH 1200
+#define DIS_HEIGHT 675
 #define BACKGROUND_GOT "GoT_background.jpeg"
 
 
