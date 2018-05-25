@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "EJ_1.h"
+#include "graphic_lib.h"
 #include <allegro5/allegro.h>
 #include <allegro5/events.h>
 #include <allegro5/allegro_image.h>
@@ -29,6 +30,19 @@
 #define DIS_WIDTH 1200
 #define DIS_HEIGHT 675
 #define BACKGROUND_GOT "GoT_background.jpeg"
+#define STARK_SIGIL "Stark.png"
+#define TARGARYEN_SIGIL "Targaryen.png"
+#define LANNISTER_SIGIL "Lannister.png"
+#define BARATHEON_SIGIL "Baratheon.png"
+#define ARRYN_SIGIL "Arryn.png"
+#define TULLY_SIGIL "Tully.png"
+#define GREYJOY_SIGIL "Greyjoy.png"
+#define TYRELL_SIGIL "Tyrell.png"
+#define ICON_WIDTH 520.0/3.5
+#define ICON_HEIGHT 510.0/3.5
+#define LEDS_POS_Y 450
+#define LEDS_POS_X 50
+#define GOLD_FILTER 212, 175, 0.5, 1
 
 
 /*******************************************************************************
