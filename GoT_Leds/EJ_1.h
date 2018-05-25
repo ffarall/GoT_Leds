@@ -45,6 +45,7 @@ void bitSet (char, int);
 void bitClr (char, int);
 int bitGet (char, int);
 void bitToggle (char, int);
+uint8_t port_cont(char port);
 
 /**
  * @brief TODO: completar descripcion
