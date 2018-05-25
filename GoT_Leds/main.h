@@ -13,6 +13,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "EJ_1.h"
+#include <allegro5/allegro.h>
+#include <allegro5/events.h>
+#include <allegro5/allegro_image.h>
 
 
 /*******************************************************************************
@@ -23,6 +26,9 @@
 #define END_OF_SIM 'q'
 #define FIN_TABLA 0
 #define FPS 60.0
+#define DIS_WIDTH 640 
+#define DIS_HEIGHT 480
+#define BACKGROUND "/home/facundofarall/Desktop/Programación_TPS/TP_9/GoT_Leds/GoT_Leds/GoT_background.jpeg"
 
 
 /*******************************************************************************

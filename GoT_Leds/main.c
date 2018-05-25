@@ -7,6 +7,7 @@ int main (void)
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
     ALLEGRO_TIMER *timer = NULL;
     ALLEGRO_DISPLAY *display = NULL;
+    ALLEGRO_BITMAP *background = NULL;
     ALLEGRO_EVENT event;
     STATE states_array[] =
     {
@@ -24,6 +25,11 @@ int main (void)
       {FIN_TABLA,states_array,reset_FSM},
     };
     STATE *p_state = &states_array[0];
+    
+    if(!al_init()) {
+        fprintf(stderr, "failed to initialize allegro!\n");
+        return -1;
+    }
     
     if(!al_install_keyboard()) {
         fprintf(stderr, "failed to initialize the keyboard!\n");
@@ -43,21 +49,31 @@ int main (void)
       return -1;
     }
 
-    display = al_create_display(640, 480);
+    display = al_create_display(DIS_WIDTH, DIS_HEIGHT);
     if(!display) {
         fprintf(stderr, "failed to create display!\n");
         al_destroy_event_queue(event_queue);
         al_destroy_timer(timer);
         return -1;
     }
+    
+    background = al_load_bitmap(BACKGROUND);
+    if(!background) {
+        fprintf(stderr, "failed to create background!\n");
+        al_destroy_event_queue(event_queue);
+        al_destroy_timer(timer);
+        al_destroy_display(display);
+        return -1;  
+    }
 
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
-    al_register_event_source(event_queue, al_get_timer_event_source(display));
+    al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-    al_start_timer();
+    al_flip_display();
+    al_start_timer(timer);
     
-/***************************************************************************/
+/***************************************************************************
     
     while(event != END_OF_SIM) {
         if(al_get_next_event(event_queue, &event)) {
@@ -69,20 +85,33 @@ int main (void)
                 
             }
             
-            else if(event.type == ALLEGRO_EVENT_KEY_UP) {
-                switch(event.keyboard.keycode) {
-                    case ALLEGRO_KEY_0: ;break;
-                    case ALLEGRO_KEY_1: ;break;
-                    case ALLEGRO_KEY_2: ;break;
-                    case ALLEGRO_KEY_3: ;break;
-                    case ALLEGRO_KEY_4: ;break;
-                    case ALLEGRO_KEY_5: ;break;
-                    case ALLEGRO_KEY_6: ;break;
-                    case ALLEGRO_KEY_7: ;break;
-                    case ALLEGRO_KEY_8: ;break;
-                    case ALLEGRO_KEY_9: ;break;
+            else if(event.type == ALLEGRO_EVENT_KEY_CHAR) {
+                switch(event.keyboard.unichar) {
+                    case '0': ;break;
+                    case '1': ;break;
+                    case '2': ;break;
+                    case '3': ;break;
+                    case '4': ;break;
+                    case '5': ;break;
+                    case '6': ;break;
+                    case '7': ;break;
+                    case '8': ;break;
+                    case '9': ;break;
+                    case 'b': ;break;
                 }
             }
+        }
+        
+        if(al_is_event_queue_empty(event_queue)) {
+            background = al_load_bitmap(BACKGROUND);
+            if(!background) {
+                fprintf(stderr, "failed to create background!\n");
+                al_destroy_event_queue(event_queue);
+                al_destroy_timer(timer);
+                al_destroy_display(display);
+                return -1;  
+    }
+            
         }
     }
 /*  changemode(BUFFERED_OFF);
@@ -105,7 +134,7 @@ int main (void)
   printf("Simulación terminada\n");
 */
     
-    
+    al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
     al_destroy_display(display);
     return 0;
