@@ -4,6 +4,8 @@ int main (void)
 {
 /********************INITIALIZATION OF VARIABLES***************************/
     boolean_t isEvent = TRUE;
+    boolean_t blink_flag = FALSE;
+    uint8_t varmask;
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
     ALLEGRO_TIMER *timer = NULL;
     ALLEGRO_DISPLAY *display = NULL;
@@ -233,7 +235,7 @@ int main (void)
     al_flip_display();
     al_start_timer(timer);
     
-/***********************************************************************************************
+
     
     while(event != END_OF_SIM) 
     {
@@ -241,7 +243,15 @@ int main (void)
         {
             if(event.type == ALLEGRO_EVENT_TIMER) 
             {
+                if((ev.timer.source == blink_timer) && (blink_flag) )
+                {
+                    maskToggle('A',varmask);
+                }
                 
+                else
+                {
+                    
+                }
             }
             
             else if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) 
@@ -249,21 +259,73 @@ int main (void)
                 
             }
             
-            else if(event.type == ALLEGRO_EVENT_KEY_CHAR) 
+            else if(event.type == ALLEGRO_EVENT_KEY_DOWN) 
             {
                 switch(event.keyboard.unichar) 
                 {
-                    case '0': ;break;
-                    case '1': ;break;
-                    case '2': ;break;
-                    case '3': ;break;
-                    case '4': ;break;
-                    case '5': ;break;
-                    case '6': ;break;
-                    case '7': ;break;
-                    case '8': ;break;
-                    case '9': ;break;
-                    case 'b': ;break;
+                    case '0':
+                        if(!blink_flag)
+                            bitToggle('A', 0);
+                        break;
+                        
+                    case '1':
+                        if(!blink_flag)
+                            bitToggle('A', 1);
+                        break;
+                        
+                    case '2':
+                        if(!blink_flag)
+                            bitToggle('A', 2);
+                        break;
+                        
+                    case '3':
+                        if(!blink_flag)
+                            bitToggle('A', 3);
+                        break;
+                        
+                    case '4':
+                        if(!blink_flag)
+                            bitToggle('A', 4);
+                        break;
+                        
+                    case '5':
+                        if(!blink_flag)
+                            bitToggle('A', 5);
+                        break;
+                        
+                    case '6':
+                       if(!blink_flag)
+                            bitToggle('A', 6);
+                        break;
+                        
+                    case '7':
+                        if(!blink_flag)
+                            bitToggle('A', 7);
+                        break;
+                        
+                    case 't':
+                        if(!blink_flag)
+                            maskToggle('A', 0xFF);
+                        break;
+                        
+                    case 'c':
+                        if(!blink_flag)
+                            maskOff('A', 0xFF);
+                        break;
+                        
+                    case 's': 
+                        if(!blink_flag)
+                            maskOn('A', 0xFF);
+                        break;
+                        
+                    case 'b':
+                        if(!blink_flag)
+                        {
+                            varmask = port_cont('A');
+                        }
+                        blink_flag = !blink_flag;
+                        break;
+                    
                 }
             }
         }
@@ -313,10 +375,10 @@ STATE* leds_fsm(STATE *p_state, char event)
 
 /*********************************************************************************************************
                                     RUTINAS DE ACCIÓN
-*********************************************************************************************************/
+*********************************************************************************************************
 void act_routine0(void)
 {
-  bitToggle('A', 0);
+
 }
 
 void act_routine1(void)
@@ -374,7 +436,7 @@ void reset_FSM(void)
 
 }
 
-/*******************************************/
+
 
 STATE states_array[] =
 {
@@ -391,3 +453,5 @@ STATE states_array[] =
   {'s',states_array,act_routines},
   {FIN_TABLA,states_array,reset_FSM},
 };
+
+*/
