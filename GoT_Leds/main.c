@@ -3,14 +3,15 @@
 int main (void)
 {
 /********************INITIALIZATION OF VARIABLES***************************/
-    boolean_t isEvent = TRUE;
+    boolean_t closeGame = FALSE, refreshScreen = FALSE;
     boolean_t blink_flag = FALSE;
     uint8_t varmask;
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-    ALLEGRO_TIMER *timer = NULL;
+    ALLEGRO_TIMER *timer = NULL, *blink_timer = NULL;
     ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_BITMAP *background = NULL;
     icon_t starkSigil, targaryenSigil, lannisterSigil, baratheonSigil, arrynSigil, tullySigil, greyjoySigil, tyrellSigil;
+    icon_t *pFstIcon = NULL;
     ALLEGRO_EVENT event;
     STATE states_array[] =
     {
@@ -44,15 +45,32 @@ int main (void)
                         background = al_load_bitmap(BACKGROUND_GOT);
                         if(background) 
                         {
-                              display = al_create_display(DIS_WIDTH, DIS_HEIGHT);
-                                if(!display) 
+                            display = al_create_display(DIS_WIDTH, DIS_HEIGHT);
+                            if(display) 
+                            {
+                                blink_timer = al_create_timer(1.0);
+                                if(blink_timer)
+                                {
+                                    
+                                }
+                                else
                                 {
                                     fprintf(stderr, "failed to create display!\n");
                                     al_destroy_event_queue(event_queue);
                                     al_destroy_timer(timer);
                                     al_destroy_bitmap(background);
+                                    al_destroy_display(display);
                                     return -1;
                                 }
+                            }
+                            else
+                            {
+                                fprintf(stderr, "failed to create display!\n");
+                                al_destroy_event_queue(event_queue);
+                                al_destroy_timer(timer);
+                                al_destroy_bitmap(background);
+                                return -1;
+                            }
                         }
                         else
                         {
@@ -124,13 +142,16 @@ int main (void)
                                     fprintf(stderr, "failed to create targaryenSigil!\n");
                                     al_destroy_event_queue(event_queue);
                                     al_destroy_timer(timer);
+                                    al_destroy_timer(blink_timer);
                                     al_destroy_bitmap(background);
                                     al_destroy_display(display);
                                     al_destroy_bitmap(starkSigil.bitmap);
                                     al_destroy_bitmap(targaryenSigil.bitmap);
                                     al_destroy_bitmap(baratheonSigil.bitmap); 
                                     al_destroy_bitmap(lannisterSigil.bitmap);
-                                    al_destroy_bitmap(arrynSigil.bitmap); 
+                                    al_destroy_bitmap(arrynSigil.bitmap);
+                                    al_destroy_bitmap(tullySigil.bitmap);
+                                    al_destroy_bitmap(greyjoySigil.bitmap);
                                 }
                             }
                             else
@@ -138,6 +159,7 @@ int main (void)
                                 fprintf(stderr, "failed to create targaryenSigil!\n");
                                 al_destroy_event_queue(event_queue);
                                 al_destroy_timer(timer);
+                                al_destroy_timer(blink_timer);
                                 al_destroy_bitmap(background);
                                 al_destroy_display(display);
                                 al_destroy_bitmap(starkSigil.bitmap);
@@ -145,6 +167,7 @@ int main (void)
                                 al_destroy_bitmap(baratheonSigil.bitmap); 
                                 al_destroy_bitmap(lannisterSigil.bitmap);
                                 al_destroy_bitmap(arrynSigil.bitmap); 
+                                al_destroy_bitmap(tullySigil.bitmap);
                             }
                         }
                         else
@@ -152,6 +175,7 @@ int main (void)
                             fprintf(stderr, "failed to create targaryenSigil!\n");
                             al_destroy_event_queue(event_queue);
                             al_destroy_timer(timer);
+                            al_destroy_timer(blink_timer);
                             al_destroy_bitmap(background);
                             al_destroy_display(display);
                             al_destroy_bitmap(starkSigil.bitmap);
@@ -166,6 +190,7 @@ int main (void)
                         fprintf(stderr, "failed to create targaryenSigil!\n");
                         al_destroy_event_queue(event_queue);
                         al_destroy_timer(timer);
+                        al_destroy_timer(blink_timer);
                         al_destroy_bitmap(background);
                         al_destroy_display(display);
                         al_destroy_bitmap(starkSigil.bitmap);
@@ -179,6 +204,7 @@ int main (void)
                     fprintf(stderr, "failed to create targaryenSigil!\n");
                     al_destroy_event_queue(event_queue);
                     al_destroy_timer(timer);
+                    al_destroy_timer(blink_timer);
                     al_destroy_bitmap(background);
                     al_destroy_display(display);
                     al_destroy_bitmap(starkSigil.bitmap);
@@ -193,6 +219,7 @@ int main (void)
                 fprintf(stderr, "failed to create targaryenSigil!\n");
                 al_destroy_event_queue(event_queue);
                 al_destroy_timer(timer);
+                al_destroy_timer(blink_timer);
                 al_destroy_bitmap(background);
                 al_destroy_display(display);
                 al_destroy_bitmap(starkSigil.bitmap);
@@ -204,6 +231,7 @@ int main (void)
             fprintf(stderr, "failed to create targaryenSigil!\n");
             al_destroy_event_queue(event_queue);
             al_destroy_timer(timer);
+            al_destroy_timer(blink_timer);
             al_destroy_bitmap(background);
             al_destroy_display(display);
             al_destroy_bitmap(starkSigil.bitmap);
@@ -214,6 +242,7 @@ int main (void)
         fprintf(stderr, "failed to create starkSigil!\n");
         al_destroy_event_queue(event_queue);
         al_destroy_timer(timer);
+        al_destroy_timer(blink_timer);
         al_destroy_bitmap(background);
         al_destroy_display(display);
     }
@@ -228,38 +257,49 @@ int main (void)
     al_draw_tinted_scaled_bitmap(greyjoySigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(greyjoySigil.bitmap), al_get_bitmap_height(greyjoySigil.bitmap), LEDS_POS_X+6*(ICON_WIDTH+25), LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
     al_draw_tinted_scaled_bitmap(tyrellSigil.bitmap, al_map_rgba_f(1, 1, 1, 1), 0, 0, al_get_bitmap_width(tyrellSigil.bitmap), al_get_bitmap_height(tyrellSigil.bitmap), LEDS_POS_X+7*(ICON_WIDTH+25), LEDS_POS_Y, ICON_WIDTH, ICON_HEIGHT, 0);
 
+    pFstIcon = &starkSigil;
+    starkSigil.pNextIcon = &targaryenSigil;
+    targaryenSigil.pNextIcon = &lannisterSigil;
+    lannisterSigil.pNextIcon = &baratheonSigil;
+    baratheonSigil.pNextIcon = &arrynSigil;
+    arrynSigil.pNextIcon = &tullySigil;
+    tullySigil.pNextIcon = &greyjoySigil;
+    greyjoySigil.pNextIcon = &tyrellSigil;
+    
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
+    al_register_event_source(event_queue, al_get_timer_event_source(blink_timer));
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     al_flip_display();
     al_start_timer(timer);
+    al_start_timer(blink_timer);
     
 
-    
-    while(event != END_OF_SIM) 
+    /****************************************************************************************************/
+    while(!closeGame) 
     {
         if(al_get_next_event(event_queue, &event)) 
         {
             if(event.type == ALLEGRO_EVENT_TIMER) 
             {
-                if((ev.timer.source == blink_timer) && (blink_flag) )
+                if((event.timer.source == blink_timer) && (blink_flag))
                 {
                     maskToggle('A',varmask);
                 }
                 
-                else
+                else if(event.timer.source == timer)
                 {
-                    
+                    refreshScreen = TRUE;
                 }
             }
             
             else if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) 
             {
-                
+                closeGame = TRUE;
             }
             
-            else if(event.type == ALLEGRO_EVENT_KEY_DOWN) 
+            else if(event.type == ALLEGRO_EVENT_KEY_CHAR) 
             {
                 switch(event.keyboard.unichar) 
                 {
@@ -330,26 +370,26 @@ int main (void)
             }
         }
         
-        if(al_is_event_queue_empty(event_queue)) 
+        if(al_is_event_queue_empty(event_queue) && refreshScreen) 
         {
-            background = al_load_bitmap(BACKGROUND_);
-            if(!background) 
-            {
-                fprintf(stderr, "failed to create background!\n");
-                al_destroy_event_queue(event_queue);
-                al_destroy_timer(timer);
-                al_destroy_display(display);
-                return -1;  
-            }
-            
+            al_draw_scaled_bitmap(background, 0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),0, 0, DIS_WIDTH, DIS_HEIGHT, 0);
+            refresh_icons(display, pFstIcon);
         }
     }
 /*******************************************************************************************************/
     
     al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
-    al_destroy_display(display);
+    al_destroy_timer(blink_timer);
     al_destroy_bitmap(background);
+    al_destroy_display(display);
+    al_destroy_bitmap(starkSigil.bitmap);
+    al_destroy_bitmap(targaryenSigil.bitmap);
+    al_destroy_bitmap(baratheonSigil.bitmap); 
+    al_destroy_bitmap(lannisterSigil.bitmap);
+    al_destroy_bitmap(arrynSigil.bitmap);
+    al_destroy_bitmap(tullySigil.bitmap);
+    al_destroy_bitmap(greyjoySigil.bitmap);
     return 0;
 }
 
@@ -375,7 +415,7 @@ STATE* leds_fsm(STATE *p_state, char event)
 
 /*********************************************************************************************************
                                     RUTINAS DE ACCIÓN
-*********************************************************************************************************
+*********************************************************************************************************/
 void act_routine0(void)
 {
 
@@ -454,4 +494,3 @@ STATE states_array[] =
   {FIN_TABLA,states_array,reset_FSM},
 };
 
-*/

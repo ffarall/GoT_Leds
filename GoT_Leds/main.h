@@ -38,11 +38,14 @@
 #define TULLY_SIGIL "Tully.png"
 #define GREYJOY_SIGIL "Greyjoy.png"
 #define TYRELL_SIGIL "Tyrell.png"
+#ifndef _ICON_DEFS
+#define _ICON_DEFS
+#define GOLD_FILTER 212, 175, 0.5, 1
 #define ICON_WIDTH 520.0/4.8
 #define ICON_HEIGHT 510.0/4.8
 #define LEDS_POS_Y 450
 #define LEDS_POS_X 60
-#define GOLD_FILTER 212, 175, 0.5, 1
+#endif
 
 
 /*******************************************************************************
