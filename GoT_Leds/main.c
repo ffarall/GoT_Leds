@@ -233,7 +233,7 @@ int main (void)
     al_flip_display();
     al_start_timer(timer);
     
-/***************************************************************************
+/***********************************************************************************************
     
     while(event != END_OF_SIM) 
     {
@@ -270,7 +270,7 @@ int main (void)
         
         if(al_is_event_queue_empty(event_queue)) 
         {
-            background = al_load_bitmap(BACKGROUND);
+            background = al_load_bitmap(BACKGROUND_);
             if(!background) 
             {
                 fprintf(stderr, "failed to create background!\n");
@@ -282,7 +282,7 @@ int main (void)
             
         }
     }
-
+/*******************************************************************************************************/
     
     al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
