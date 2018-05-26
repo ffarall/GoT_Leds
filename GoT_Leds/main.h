@@ -17,6 +17,8 @@
 #include <allegro5/allegro.h>
 #include <allegro5/events.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 
 /*******************************************************************************
@@ -38,6 +40,7 @@
 #define TULLY_SIGIL "Tully.png"
 #define GREYJOY_SIGIL "Greyjoy.png"
 #define TYRELL_SIGIL "Tyrell.png"
+#define MAIN_THEME "Got_theme_song.wav"
 #ifndef _ICON_DEFS
 #define _ICON_DEFS
 #define GOLD_FILTER 212, 175, 0.5, 1

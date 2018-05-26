@@ -12,6 +12,7 @@ int main (void)
     ALLEGRO_BITMAP *background = NULL;
     icon_t starkSigil, targaryenSigil, lannisterSigil, baratheonSigil, arrynSigil, tullySigil, greyjoySigil, tyrellSigil;
     icon_t *pFstIcon = NULL;
+    ALLEGRO_SAMPLE *main_theme = NULL;
     ALLEGRO_EVENT event;
     STATE states_array[] =
     {
@@ -51,7 +52,52 @@ int main (void)
                                 blink_timer = al_create_timer(1.0);
                                 if(blink_timer)
                                 {
-                                    
+                                    if(al_install_audio())
+                                    {
+                                        if(al_init_acodec_addon())
+                                        {
+                                            if(al_reserve_samples(1))
+                                            {
+                                                main_theme = al_load_sample(MAIN_THEME);
+                                                if (!main_theme)
+                                                {
+                                                    printf("Audio clip sample not loaded!\n"); 
+                                                    al_destroy_event_queue(event_queue);
+                                                    al_destroy_timer(timer);
+                                                    al_destroy_bitmap(background);
+                                                    al_destroy_display(display);
+                                                    return -1;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                fprintf(stderr, "failed to reserve samples!\n");
+                                                al_destroy_event_queue(event_queue);
+                                                al_destroy_timer(timer);
+                                                al_destroy_bitmap(background);
+                                                al_destroy_display(display);
+                                                return -1;                                        
+                                            }
+                                        }
+                                        else
+                                        {
+                                            fprintf(stderr, "failed to initialize audio codecs!\n");
+                                            al_destroy_event_queue(event_queue);
+                                            al_destroy_timer(timer);
+                                            al_destroy_bitmap(background);
+                                            al_destroy_display(display);
+                                            return -1;                                        
+                                        }
+                                    }
+                                    else
+                                    {
+                                        fprintf(stderr, "failed to initialize audio!\n");
+                                        al_destroy_event_queue(event_queue);
+                                        al_destroy_timer(timer);
+                                        al_destroy_bitmap(background);
+                                        al_destroy_display(display);
+                                        return -1;
+                                    }
                                 }
                                 else
                                 {
@@ -274,6 +320,7 @@ int main (void)
     al_flip_display();
     al_start_timer(timer);
     al_start_timer(blink_timer);
+    al_play_sample(main_theme, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,NULL);
     
 
     /****************************************************************************************************/
@@ -390,6 +437,8 @@ int main (void)
     al_destroy_bitmap(arrynSigil.bitmap);
     al_destroy_bitmap(tullySigil.bitmap);
     al_destroy_bitmap(greyjoySigil.bitmap);
+    al_destroy_sample(main_theme);
+    al_uninstall_audio();
     return 0;
 }
 
