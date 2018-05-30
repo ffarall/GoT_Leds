@@ -31,7 +31,7 @@
 #define D6 22
 #define D7 27
 #define EXPORT_DIR "/sys/class/gpio/export"
-#define UNEXPOT_DIR "/sys/class/gpio/unexport"
+#define UNEXPORT_DIR "/sys/class/gpio/unexport"
 #define LEDS 8
 #define HIGH '1'
 #define LOW '0'
