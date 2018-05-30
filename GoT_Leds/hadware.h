@@ -22,14 +22,14 @@
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
-#define D0 17
-#define D1 4
-#define D2 18
-#define D3 23
-#define D4 24
-#define D5 25
-#define D6 22
-#define D7 27
+#define D0 "17"
+#define D1 "4"
+#define D2 "18"
+#define D3 "23"
+#define D4 "24"
+#define D5 "25"
+#define D6 "22"
+#define D7 "27"
 #define EXPORT_DIR "/sys/class/gpio/export"
 #define UNEXPORT_DIR "/sys/class/gpio/unexport"
 #define LEDS 8

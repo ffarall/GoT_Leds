@@ -39,7 +39,7 @@ void refresh_leds(void)
 
 static boolean_t export_pins(void)
 {
-    int pins[] = {D0, D1, D2, D3, D4, D5, D6, D7};
+    const char *pins[] = {D0, D1, D2, D3, D4, D5, D6, D7};
     int pin;
     int filedesc;
     
@@ -47,12 +47,13 @@ static boolean_t export_pins(void)
     {
         filedesc = open(EXPORT_DIR, O_WRONLY | O_APPEND);
         if(filedesc < 0)
+        {
             printf("Cannot open export file.\n");
             return FALSE;
-
+        }
         if(write(filedesc, pins[pin], 3) != 3)
         {
-            printf("Cannot export pin %d.\n", pins[pin]);    
+            printf("Cannot export pin %s.\n", pins[pin]);    
             return FALSE;
         }
     }
@@ -61,7 +62,7 @@ static boolean_t export_pins(void)
 
 static boolean_t pins_as_output(void)
 {
-    int pinDirections[] = {D0_DIRECTION, D1_DIRECTION, D2_DIRECTION, D3_DIRECTION, D4_DIRECTION, D5_DIRECTION, D6_DIRECTION, D7_DIRECTION};
+    const char *pinDirections[] = {D0_DIRECTION, D1_DIRECTION, D2_DIRECTION, D3_DIRECTION, D4_DIRECTION, D5_DIRECTION, D6_DIRECTION, D7_DIRECTION};
     int pin;
     int filedesc;
     
@@ -72,7 +73,7 @@ static boolean_t pins_as_output(void)
             printf("Cannot open pin's %d direction file.\n", pin);
             return FALSE;
 
-        if(write(filedesc, "out", 4) != 4)
+        if(write(filedesc, "out", 4) <= 4)
         {
             printf("Cannot set pin %d as output.\n", pin);    
             return FALSE;
@@ -83,7 +84,7 @@ static boolean_t pins_as_output(void)
 
 static boolean_t set_pin(int pinN, char state)
 {
-    int pinValues[] = {D0_VALUE, D1_VALUE, D2_VALUE, D3_VALUE, D4_VALUE, D5_VALUE, D6_VALUE, D7_VALUE};
+    const char *pinValues[] = {D0_VALUE, D1_VALUE, D2_VALUE, D3_VALUE, D4_VALUE, D5_VALUE, D6_VALUE, D7_VALUE};
     int filedesc;
     
     filedesc = open(pinValues[pinN], O_WRONLY | O_APPEND);
@@ -91,7 +92,7 @@ static boolean_t set_pin(int pinN, char state)
             printf("Cannot open pin's %d value file.\n", pinN);
             return FALSE;
 
-        if(write(filedesc, state, 2) != 2)
+        if(write(filedesc, state, 2) <= 2)
         {
             printf("Cannot set pin %d as %c.\n", pinN, state);    
             return FALSE;
@@ -101,7 +102,7 @@ static boolean_t set_pin(int pinN, char state)
 
 static boolean_t unexport_pins(void)
 {
-    int pins[] = {D0, D1, D2, D3, D4, D5, D6, D7};
+    const char *pins[] = {D0, D1, D2, D3, D4, D5, D6, D7};
     int pin;
     int filedesc;
     
@@ -112,9 +113,9 @@ static boolean_t unexport_pins(void)
             printf("Cannot open unexport file.\n");
             return FALSE;
 
-        if(write(filedesc, pins[pin], 3) != 3)
+        if(write(filedesc, pins[pin], 3) <= 3)
         {
-            printf("Cannot unexport pin %d.\n", pins[pin]);    
+            printf("Cannot unexport pin %s.\n", pins[pin]);    
             return FALSE;
         }
     }
