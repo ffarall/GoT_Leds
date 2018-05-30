@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/EJ_1.o \
 	${OBJECTDIR}/getPort.o \
 	${OBJECTDIR}/graphic_lib.o \
+	${OBJECTDIR}/hardware.o \
 	${OBJECTDIR}/main.o
 
 
@@ -79,6 +80,11 @@ ${OBJECTDIR}/graphic_lib.o: graphic_lib.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/graphic_lib.o graphic_lib.c
+
+${OBJECTDIR}/hardware.o: hardware.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hardware.o hardware.c
 
 ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}

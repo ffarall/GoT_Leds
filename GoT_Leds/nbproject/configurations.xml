@@ -7,6 +7,7 @@
       <itemPath>EJ_1.h</itemPath>
       <itemPath>getPort.h</itemPath>
       <itemPath>graphic_lib.h</itemPath>
+      <itemPath>hadware.h</itemPath>
       <itemPath>main.h</itemPath>
       <itemPath>types_def.h</itemPath>
     </logicalFolder>
@@ -20,6 +21,7 @@
       <itemPath>EJ_1.c</itemPath>
       <itemPath>getPort.c</itemPath>
       <itemPath>graphic_lib.c</itemPath>
+      <itemPath>hardware.c</itemPath>
       <itemPath>main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -73,6 +75,10 @@
       </item>
       <item path="graphic_lib.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="hadware.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="hardware.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="main.h" ex="false" tool="3" flavor2="0">
@@ -111,6 +117,10 @@
       <item path="graphic_lib.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="graphic_lib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="hadware.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="hardware.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>

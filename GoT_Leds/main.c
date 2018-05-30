@@ -421,6 +421,7 @@ int main (void)
         {
             al_draw_scaled_bitmap(background, 0, 0, al_get_bitmap_width(background), al_get_bitmap_height(background),0, 0, DIS_WIDTH, DIS_HEIGHT, 0);
             refresh_icons(display, pFstIcon);
+            refresh_leds();
         }
     }
 /*******************************************************************************************************/
