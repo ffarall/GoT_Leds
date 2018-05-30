@@ -33,7 +33,7 @@ void refresh_leds(void)
     
     if(!unexport_pins())
     {
-        
+        printf("Failed to unexport pins.\n");
     }
 }
 
